@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-# Saytni lokal ko'rish: ./run.sh  (port o'zgartirish: PORT=8080 ./run.sh)
+# Faqat LOKAL sinov uchun: kodni o'zgartirib, GitHub'ga push qilishdan oldin natijani ko'rish.
+# Haqiqiy sayt GitHub Pages'da ishlaydi va bu skriptga bog'liq emas:
+#   https://kadirovhabibjon.github.io/Portfolio/
+# Port o'zgartirish: PORT=8080 ./run.sh
 # Eslatma: admin panelda saqlangan o'zgarishlar GitHub'ga yoziladi — lokalda ko'rish uchun avval: git pull
 set -euo pipefail
 cd "$(dirname "$0")"
 ./build.sh
 PORT="${PORT:-5500}"
 echo ""
-echo "  Sayt:        http://localhost:$PORT"
-echo "  Admin panel: http://localhost:$PORT/admin/"
-echo "  To'xtatish:  Ctrl+C"
+echo "  Lokal sinov:  http://localhost:$PORT"
+echo "  Haqiqiy sayt: https://kadirovhabibjon.github.io/Portfolio/"
+echo "  To'xtatish:   Ctrl+C"
 echo ""
 exec python3 -m http.server "$PORT" --bind 127.0.0.1 --directory _site
