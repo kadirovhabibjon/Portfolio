@@ -136,11 +136,54 @@ const CONTENT_PATH = "public/content.json";
 const UPLOADS_PATH = "public/uploads";
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const ALLOWED_UPLOADS = ["png", "jpg", "jpeg", "webp", "gif", "pdf"];
+const AUTH_PATH = "public/admin/auth.json";
 const TOKEN_KEY = "portfolio_gh_token";
 
+// Ochilgan token brauzer yopilguncha (sessionStorage) eslab qolinadi
 let token = "";
-try { token = localStorage.getItem(TOKEN_KEY) || ""; } catch (e) {}
-const saveToken = (v) => { token = v; try { v ? localStorage.setItem(TOKEN_KEY, v) : localStorage.removeItem(TOKEN_KEY); } catch (e) {} };
+try { token = sessionStorage.getItem(TOKEN_KEY) || ""; localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+const saveToken = (v) => { token = v; try { v ? sessionStorage.setItem(TOKEN_KEY, v) : sessionStorage.removeItem(TOKEN_KEY); } catch (e) {} };
+
+/* ---------- Parol bilan shifrlash ----------
+   Token AES-GCM bilan shifrlanadi, kalit paroldan PBKDF2 (SHA-256, 600 000 iteratsiya) orqali olinadi.
+   Repoda faqat shifrlangan token turadi; uni ochish uchun parol kerak. */
+const PBKDF2_ITERATIONS = 600000;
+const bytesToB64 = (bytes) => btoa(String.fromCharCode(...bytes));
+const b64ToBytes = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+
+async function deriveKey(password, salt, iterations) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+async function encryptToken(tok, password) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(password, salt, PBKDF2_ITERATIONS);
+  const data = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(tok)));
+  return { v: 1, iterations: PBKDF2_ITERATIONS, salt: bytesToB64(salt), iv: bytesToB64(iv), data: bytesToB64(data) };
+}
+async function decryptToken(auth, password) {
+  const key = await deriveKey(password, b64ToBytes(auth.salt), auth.iterations);
+  try {
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64ToBytes(auth.iv) }, key, b64ToBytes(auth.data));
+    return new TextDecoder().decode(plain);
+  } catch (e) {
+    throw new Error("Parol noto'g'ri");
+  }
+}
+
+// auth.json ni GitHub API'dan o'qiymiz (sayt nusxasi deploy bo'lguncha eski bo'lishi mumkin); limit tugasa — saytdagi nusxa
+async function loadAuth() {
+  const res = await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${AUTH_PATH}?ref=${BRANCH}`, {
+    cache: "no-store", headers: { Accept: "application/vnd.github+json" },
+  }).catch(() => null);
+  if (res && res.status === 404) return null;
+  if (res && res.ok) return { ...JSON.parse(fromBase64((await res.json()).content)) };
+  const site = await fetch("auth.json", { cache: "no-store" }).catch(() => null);
+  if (site && site.ok) return site.json();
+  if (site && site.status === 404) return null;
+  throw new Error("Sozlamani yuklab bo'lmadi. Internetni tekshirib, sahifani yangilang");
+}
 
 async function gh(path, opts = {}) {
   const res = await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}${path}`, {
@@ -152,7 +195,7 @@ async function gh(path, opts = {}) {
   if (res.status === 401) {
     saveToken("");
     showLogin();
-    throw new Error("Token yaroqsiz yoki muddati tugagan. Yangi token kiriting");
+    throw new Error("GitHub token yaroqsiz yoki muddati tugagan. \"Parolni o'rnatish / tokenni yangilash\" orqali yangi token kiriting");
   }
   if (res.status === 409 || (res.status === 422 && /sha/i.test(data.message || ""))) {
     throw new Error("Ma'lumot boshqa joyda o'zgartirilgan. Sahifani yangilang (F5) va qayta tahrirlang");
@@ -359,10 +402,30 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ---------- Auth ---------- */
-function showLogin() {
+let authConfigured = true;
+
+function showForm(which) {
   $("#appView").hidden = true;
   $("#loginView").hidden = false;
-  $("#password").focus();
+  $("#loginForm").hidden = which !== "login";
+  $("#setupForm").hidden = which !== "setup";
+  $("#backToLogin").hidden = !authConfigured;
+  (which === "login" ? $("#password") : $("#setupToken")).focus();
+}
+const showLogin = () => showForm(authConfigured ? "login" : "setup");
+document.querySelectorAll("[data-show]").forEach((b) => b.addEventListener("click", () => showForm(b.dataset.show)));
+
+function formError(id, msg) {
+  const el = $(id);
+  el.textContent = msg || "";
+  el.hidden = !msg;
+}
+async function withBusy(form, fn) {
+  const btn = form.querySelector("button[type=submit]");
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Tekshirilmoqda…";
+  try { await fn(); } finally { btn.disabled = false; btn.textContent = label; }
 }
 
 async function showApp() {
@@ -376,23 +439,49 @@ async function showApp() {
   renderEditor();
 }
 
-$("#loginForm").addEventListener("submit", async (e) => {
+$("#loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const err = $("#loginError");
-  err.hidden = true;
-  try {
-    saveToken($("#password").value.trim());
-    const repo = await gh("");
-    if (!repo.permissions || !repo.permissions.push) {
-      saveToken("");
-      throw new Error(`Tokenda ${REPO.owner}/${REPO.repo} repoga yozish ruxsati yo'q (Contents: Read and write kerak)`);
+  formError("#loginError");
+  withBusy(e.target, async () => {
+    try {
+      const auth = await loadAuth();
+      if (!auth) { authConfigured = false; showForm("setup"); return; }
+      saveToken(await decryptToken(auth, $("#password").value));
+      $("#password").value = "";
+      await showApp();
+    } catch (ex) {
+      formError("#loginError", ex.message);
     }
-    $("#password").value = "";
-    await showApp();
-  } catch (ex) {
-    err.textContent = ex.message;
-    err.hidden = false;
-  }
+  });
+});
+
+$("#setupForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  formError("#setupError");
+  const tok = $("#setupToken").value.trim();
+  const pass = $("#setupPassword").value;
+  if (pass.length < 10) return formError("#setupError", "Parol kamida 10 belgidan iborat bo'lsin");
+  if (pass !== $("#setupPassword2").value) return formError("#setupError", "Parollar mos kelmadi");
+  withBusy(e.target, async () => {
+    try {
+      saveToken(tok);
+      const auth = await encryptToken(tok, pass);
+      // Mavjud auth.json bo'lsa uning sha'si kerak; shu so'rov token yaroqliligini ham tekshiradi
+      let sha;
+      try { sha = (await gh(`/contents/${AUTH_PATH}?ref=${BRANCH}`)).sha; } catch (ex) { if (!/ruxsat yo'q/.test(ex.message)) throw ex; }
+      await gh(`/contents/${AUTH_PATH}`, {
+        method: "PUT",
+        body: JSON.stringify({ message: "Admin: parol yangilandi", content: toBase64(JSON.stringify(auth, null, 2) + "\n"), sha, branch: BRANCH }),
+      });
+      authConfigured = true;
+      e.target.reset();
+      await showApp();
+      toast("Parol o'rnatildi ✓ Endi faqat parol bilan kirasiz");
+    } catch (ex) {
+      saveToken("");
+      formError("#setupError", ex.message);
+    }
+  });
 });
 
 $("#logoutBtn").addEventListener("click", async () => {
@@ -404,4 +493,4 @@ $("#logoutBtn").addEventListener("click", async () => {
 
 $("#repoName").textContent = `${REPO.owner}/${REPO.repo}`;
 if (token) showApp().catch((err) => { showLogin(); toast(err.message, true); });
-else showLogin();
+else loadAuth().then((auth) => { authConfigured = !!auth; showLogin(); }).catch(() => showLogin());

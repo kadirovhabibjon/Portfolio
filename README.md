@@ -24,12 +24,18 @@ Har saqlash alohida commit, shuning uchun eski versiyalar git tarixida saqlanadi
 
 ## Admin panelga kirish
 
-Parol o'rniga GitHub token ishlatiladi (bir marta yaratiladi, brauzerda eslab qolinadi):
+Oddiy holatda **faqat parol** bilan kiriladi.
+
+Parol bir marta o'rnatiladi (va GitHub token muddati tugaganda yangilanadi): admin panelda
+**"Parolni o'rnatish / tokenni yangilash"** → GitHub token + yangi parol. Token olish:
 
 1. https://github.com/settings/personal-access-tokens/new
 2. **Repository access** → *Only select repositories* → `Portfolio`
 3. **Permissions** → **Contents** → *Read and write*
-4. **Generate token** → admin panelga kiriting
+
+Token parol bilan shifrlanib (PBKDF2 600k + AES-GCM) `public/admin/auth.json` ga yoziladi —
+repoda faqat shifrlangan ko'rinishi turadi. Shu sababli parol uzun va noyob bo'lsin.
+Kirilgandan keyin brauzer yopilguncha qayta parol so'ralmaydi.
 
 ## Birinchi marta GitHub Pages'ni yoqish
 

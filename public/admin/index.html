@@ -17,10 +17,21 @@
 <body>
   <!-- Login -->
   <section id="loginView" class="login" hidden>
-    <form id="loginForm" class="card login-card">
+    <!-- Oddiy kirish: faqat parol -->
+    <form id="loginForm" class="card login-card" hidden>
       <h1>Admin panel</h1>
-      <p class="muted">O'zgarishlar GitHub'dagi repoga saqlanadi. Kirish uchun GitHub token kiriting.</p>
-      <input type="password" id="password" class="input" placeholder="github_pat_..." autocomplete="off" required autofocus>
+      <p class="muted">Kirish uchun parolni kiriting</p>
+      <input type="password" id="password" class="input" placeholder="Parol" autocomplete="current-password" required>
+      <p id="loginError" class="error" hidden></p>
+      <button class="btn btn-primary" type="submit">Kirish</button>
+      <button type="button" class="link setup-link" data-show="setup">Parolni o'rnatish / tokenni yangilash</button>
+    </form>
+
+    <!-- Bir martalik sozlash: GitHub token + yangi parol -->
+    <form id="setupForm" class="card login-card" hidden>
+      <h1>Parol o'rnatish</h1>
+      <p class="muted">Bir martalik sozlash. GitHub token parolingiz bilan shifrlanib repoda saqlanadi — keyin faqat parol bilan kirasiz.</p>
+      <input type="password" id="setupToken" class="input" placeholder="GitHub token (github_pat_...)" autocomplete="off" required>
       <details class="token-help">
         <summary>Token qanday olinadi?</summary>
         <ol>
@@ -30,10 +41,13 @@
           <li><b>Permissions</b> → <b>Contents</b> → <i>Read and write</i></li>
           <li><b>Generate token</b> → tokenni nusxalab shu yerga qo'ying</li>
         </ol>
-        <p class="muted">Token faqat shu brauzerda saqlanadi. Uni hech kimga bermang.</p>
       </details>
-      <p id="loginError" class="error" hidden></p>
-      <button class="btn btn-primary" type="submit">Kirish</button>
+      <input type="password" id="setupPassword" class="input" placeholder="Yangi parol (kamida 10 belgi)" autocomplete="new-password" minlength="10" required>
+      <input type="password" id="setupPassword2" class="input" placeholder="Parolni takrorlang" autocomplete="new-password" required>
+      <p class="muted hint-sm">Shifrlangan token repoda ochiq turadi, shuning uchun parol uzun va taxmin qilib bo'lmaydigan bo'lsin.</p>
+      <p id="setupError" class="error" hidden></p>
+      <button class="btn btn-primary" type="submit">Saqlash va kirish</button>
+      <button type="button" class="link setup-link" data-show="login" id="backToLogin">← Parol bilan kirish</button>
     </form>
   </section>
 

@@ -76,6 +76,8 @@
 }
 
 .token-help { font-size: 14px; }
+.setup-link { justify-self: center; font-size: 14px; }
+.hint-sm { font-size: 12px; margin-top: -6px; }
 .token-help summary { cursor: pointer; color: var(--accent); }
 .token-help ol { margin: 10px 0 8px 18px; display: grid; gap: 6px; }
 .token-help .link { border: 0; word-break: break-all; }
