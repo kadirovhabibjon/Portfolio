@@ -1,0 +1,306 @@
+{
+  "name": "Habibjon Kadirov",
+  "photo": "uploads/f2eb4e446f196c46.jpg",
+  "title": {
+    "uz": "Backend Developer & AI Engineer",
+    "ru": "Backend Developer & AI Engineer",
+    "en": "Backend Developer & AI Engineer"
+  },
+  "about": {
+    "uz": "",
+    "ru": "",
+    "en": ""
+  },
+  "email": "kadirovhabibjon@gmail.com",
+  "phone": "+998917807722",
+  "resume": "uploads/4dc935e9c66f29da.pdf",
+  "location": {
+    "uz": "",
+    "ru": "",
+    "en": ""
+  },
+  "socials": {
+    "telegram": "https://t.me/kadirovsss",
+    "github": "https://github.com/kadirovhabibjon",
+    "linkedin": "https://www.linkedin.com/in/habibjon-kadirov",
+    "youtube": ""
+  },
+  "experience": [
+    {
+      "period": {
+        "uz": "2026 - Hozirgacha",
+        "ru": "2026 - Настоящее время",
+        "en": "2026 - Present"
+      },
+      "company": "Ipoteka Bank OTP Group",
+      "logo": "uploads/f34088625d3a6fad.png",
+      "role": {
+        "uz": "Backend Developer & AI Engineer ( Intern )",
+        "ru": "Backend Developer & AI Engineer ( Intern )",
+        "en": "Backend Developer & AI Engineer ( Intern )"
+      }
+    },
+    {
+      "period": {
+        "uz": "2025 - 2026",
+        "ru": "2025 - 2026",
+        "en": "2025 - 2026"
+      },
+      "company": "School 21 IT",
+      "logo": "uploads/312b48e25cdd36d6.jpg",
+      "role": {
+        "uz": "Backend Developer",
+        "ru": "Backend Developer",
+        "en": "Backend Developer"
+      }
+    },
+    {
+      "period": {
+        "uz": "2024 - 2025",
+        "ru": "2024 - 2025",
+        "en": "2024 - 2025"
+      },
+      "company": "UZEngineering",
+      "logo": "uploads/86e770cd655e8075.png",
+      "role": {
+        "uz": "Junior Backend Developer",
+        "ru": "Junior Backend Developer",
+        "en": "Junior Backend Developer"
+      }
+    }
+  ],
+  "education": [
+    {
+      "period": "2024-2029",
+      "place": {
+        "uz": "Tashkent Kimyo Texnologiya Instituti",
+        "ru": "Ташкентский институт химической технологии",
+        "en": "Tashkent Institute of Chemical Technology"
+      },
+      "degree": {
+        "uz": "Bakalavr, Management",
+        "ru": "Бакалавр, Management",
+        "en": "Bachelor, Management"
+      }
+    },
+    {
+      "period": "2025-2026",
+      "place": {
+        "uz": "School 21 IT",
+        "ru": "School 21 IT",
+        "en": "School 21 IT"
+      },
+      "degree": {
+        "uz": "Software Engineer",
+        "ru": "Software Engineer",
+        "en": "Software Engineer"
+      }
+    }
+  ],
+  "stack": [
+    {
+      "name": "HTML",
+      "icon": "devicon-html5-plain colored"
+    },
+    {
+      "name": "CSS",
+      "icon": "devicon-css3-plain colored"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "devicon-javascript-plain colored"
+    },
+    {
+      "name": "Python",
+      "icon": "devicon-python-plain colored"
+    },
+    {
+      "name": "PostgreSQL",
+      "icon": "devicon-postgresql-plain colored"
+    },
+    {
+      "name": "SQL",
+      "icon": "ic:db"
+    },
+    {
+      "name": "MySQL",
+      "icon": "si:mysql:#4479A1"
+    },
+    {
+      "name": "Django",
+      "icon": "devicon-django-plain"
+    },
+    {
+      "name": "FastAPI",
+      "icon": "devicon-fastapi-plain colored"
+    },
+    {
+      "name": "REST API",
+      "icon": "devicon-openapi-plain colored"
+    },
+    {
+      "name": "Git",
+      "icon": "devicon-git-plain colored"
+    },
+    {
+      "name": "CI/CD",
+      "icon": "devicon-githubactions-plain colored"
+    },
+    {
+      "name": "Webhook",
+      "icon": "ic:webhook"
+    },
+    {
+      "name": "Vault",
+      "icon": "si:vault:#FFEC6E"
+    },
+    {
+      "name": "Docker",
+      "icon": "devicon-docker-plain colored"
+    },
+    {
+      "name": "Nexus",
+      "icon": "si:sonatype"
+    },
+    {
+      "name": "MinIO",
+      "icon": "si:minio:#C72E49"
+    },
+    {
+      "name": "Redis",
+      "icon": "devicon-redis-plain colored"
+    },
+    {
+      "name": "Kafka",
+      "icon": "si:apachekafka"
+    },
+    {
+      "name": "MCP",
+      "icon": "si:modelcontextprotocol"
+    },
+    {
+      "name": "Qdrant",
+      "icon": "si:qdrant:#DC244C"
+    },
+    {
+      "name": "SQLAlchemy",
+      "icon": "si:sqlalchemy"
+    },
+    {
+      "name": "Alembic",
+      "icon": "ic:flask"
+    },
+    {
+      "name": "Celery",
+      "icon": "si:celery:#37814A"
+    },
+    {
+      "name": "RAG",
+      "icon": "ic:rag"
+    },
+    {
+      "name": "OCR & Document Parsing",
+      "icon": "ic:ocr"
+    },
+    {
+      "name": "OpenAI",
+      "icon": "ic:sparkle"
+    },
+    {
+      "name": "Self-hosted Models",
+      "icon": "ic:server"
+    },
+    {
+      "name": "Grafana",
+      "icon": "devicon-grafana-plain colored"
+    },
+    {
+      "name": "LangChain",
+      "icon": "si:langchain"
+    },
+    {
+      "name": "LightLLM",
+      "icon": "ic:bolt"
+    }
+  ],
+  "projects": [
+    {
+      "name": "MetaDesk",
+      "image": "uploads/4e039ec0231fe5fa.png",
+      "url": "https://www.ipotekabank.uz/ru/",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "AI Agents",
+        "PostgreSQL",
+        "REST API",
+        "RBAC",
+        "Docker",
+        "GitLab CI/CD"
+      ],
+      "description": {
+        "uz": "Bankning AI bo’limidagi ichki servislar va foydalanuvchilarni yagona joyda boshqaruvchi desk-platforma. Foydalanuvchilar va guruhlarni boshqarish modulini qayta loyihalab, ularni alohida sahifalarga ajratdim, har bir guruh uchun shaxsiy sahifa va a’zo qo’shishda qidiruv funksiyasini qo’shdim. Shuningdek, platformaga yangi AI servislarini, jumladan AI Test Builder’ni integratsiya qildim.",
+        "ru": "Внутренняя desk-платформа AI-департамента банка для централизованного управления сервисами и пользователями. Переработал модуль управления пользователями и группами: разделил их на отдельные страницы, добавил страницу для каждой группы и поиск при добавлении участников. Также интегрировал в платформу новые AI-сервисы, включая AI Test Builder.",
+        "en": "Internal desk platform used by the bank’s AI Department to manage services and users in one place. Redesigned the user and group management module, splitting it into separate pages with a dedicated page for each group and search when adding members. Also integrated new AI services into the platform, including AI Test Builder."
+      }
+    },
+    {
+      "name": "AI Test Builder",
+      "image": "uploads/e52f99abd6cb1d2d.png",
+      "url": "https://www.ipotekabank.uz/",
+      "tags": [
+        "Python",
+        "AI",
+        "HashiCorp Vault",
+        "GitLab CI/CD",
+        "Docker",
+        "Integration"
+      ],
+      "description": {
+        "uz": "Bankning AI bo’limida ishlab chiqilayotgan, sun’iy intellekt yordamida testlar yaratuvchi ichki platforma. Jamoada ishlab, servisni bankning ichki desk-platformasi bilan integratsiya qildim, maxfiy ma’lumotlarni HashiCorp Vault orqali boshqarishni ulab, servisni dev muhitiga deploy qildim.",
+        "ru": "Внутренняя платформа AI-департамента банка для генерации тестов с помощью искусственного интеллекта. В составе команды интегрировал сервис с внутренней desk-платформой банка, подключил управление секретами через HashiCorp Vault и выполнил деплой сервиса в dev-среду.",
+        "en": "Internal AI-powered test generation platform developed by the bank’s AI Department. As part of the team, I integrated the service with the bank’s internal desk platform, connected secrets management via HashiCorp Vault and deployed the service to the dev environment."
+      }
+    },
+    {
+      "name": "FinCore",
+      "image": "uploads/6564c930caa1f124.png",
+      "url": "https://ninth-distinct-sincere.ngrok-free.dev/login",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "AI",
+        "PostgreSQL",
+        "Microservices",
+        "Docker",
+        "REST API",
+        "JWT",
+        "Redis"
+      ],
+      "description": {
+        "uz": "Bank tizimiga o’xshash raqamli hamyon va to’lov platformasi backend’i. Mikroservis arxitekturasida noldan loyihalab qurdim: foydalanuvchilarni autentifikatsiya qilish, hamyonlar, balans va pul o’tkazmalari alohida servislarga ajratilgan. Tranzaksiyalar xavfsizligi, ma’lumotlar yaxlitligi va kengaytiriluvchanlikka alohida e’tibor qaratdim.",
+        "ru": "Backend цифрового кошелька и платёжной платформы по образцу банковской системы. Спроектировал и разработал с нуля на микросервисной архитектуре: аутентификация, кошельки, баланс и переводы вынесены в отдельные сервисы. Особое внимание уделил безопасности транзакций, целостности данных и масштабируемости.",
+        "en": "Backend for a digital wallet and payment platform modeled on a real banking system. Designed and built from scratch on a microservices architecture, with authentication, wallets, balances and transfers split into separate services. Focused on transaction safety, data integrity and scalability."
+      }
+    },
+    {
+      "name": "HR MCP Service",
+      "image": "uploads/0f82250bb8875e20.png",
+      "url": "https://www.ipotekabank.uz/about/karera/vakansii-banka/",
+      "tags": [
+        "Python",
+        "MCP",
+        "LLM",
+        "AI Agents",
+        "GitLab"
+      ],
+      "description": {
+        "uz": "Rekruting jarayonlarini avtomatlashtirish uchun MCP (Model Context Protocol) servisi: AI agentlarga HR ma’lumotlari va vositalaridan xavfsiz foydalanish imkonini beradi. Jamoa a’zosi sifatida yangi funksiyalarni ishlab chiqib, code review orqali asosiy branch’ga birlashtirdim.",
+        "ru": "MCP-сервис (Model Context Protocol) для автоматизации процессов рекрутинга: даёт AI-агентам безопасный доступ к HR-данным и инструментам. В составе команды разрабатывал новый функционал и вливал его в основную ветку через code review.",
+        "en": "MCP (Model Context Protocol) service for automating recruiting workflows, giving AI agents secure access to HR data and tools. As a team member, I developed new features and merged them into the main branch through code review."
+      }
+    }
+  ],
+  "videos": [],
+  "snow": false
+}

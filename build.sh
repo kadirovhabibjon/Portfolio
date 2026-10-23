@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# public/ dan tayyor saytni _site/ ga yig'adi (GitHub Pages va lokal ko'rish uchun).
+set -euo pipefail
+cd "$(dirname "$0")"
+rm -rf _site
+cp -r public _site
+# /contact/ manzili ham ochilishi uchun — sahifaning o'zi bir xil, bo'limni JS URL bo'yicha tanlaydi
+mkdir -p _site/contact
+# Statik <base> — brauzer CSS/JS'ni sahifa skripti ishlashidan oldin ham to'g'ri manzildan yuklaydi
+sed 's|<meta charset="utf-8">|<meta charset="utf-8">\n  <base href="../">|' _site/index.html > _site/contact/index.html
+touch _site/.nojekyll
+echo "Tayyor: _site/"

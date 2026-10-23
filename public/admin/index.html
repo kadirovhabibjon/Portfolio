@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="uz" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin panel</title>
+  <link rel="icon" href="../assets/avatar.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="admin.css">
+  <script>
+    try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark"; } catch (e) {}
+  </script>
+</head>
+<body>
+  <!-- Login -->
+  <section id="loginView" class="login" hidden>
+    <form id="loginForm" class="card login-card">
+      <h1>Admin panel</h1>
+      <p class="muted">O'zgarishlar GitHub'dagi repoga saqlanadi. Kirish uchun GitHub token kiriting.</p>
+      <input type="password" id="password" class="input" placeholder="github_pat_..." autocomplete="off" required autofocus>
+      <details class="token-help">
+        <summary>Token qanday olinadi?</summary>
+        <ol>
+          <li><a class="link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> ni oching</li>
+          <li><b>Expiration</b> — xohlagan muddat (masalan 1 yil)</li>
+          <li><b>Repository access</b> → <i>Only select repositories</i> → <span id="repoName"></span></li>
+          <li><b>Permissions</b> → <b>Contents</b> → <i>Read and write</i></li>
+          <li><b>Generate token</b> → tokenni nusxalab shu yerga qo'ying</li>
+        </ol>
+        <p class="muted">Token faqat shu brauzerda saqlanadi. Uni hech kimga bermang.</p>
+      </details>
+      <p id="loginError" class="error" hidden></p>
+      <button class="btn btn-primary" type="submit">Kirish</button>
+    </form>
+  </section>
+
+  <!-- Editor -->
+  <div id="appView" hidden>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <strong class="brand">Admin panel</strong>
+        <div class="topbar-actions">
+          <span id="status" class="status muted"></span>
+          <a href="../" target="_blank" class="btn btn-outline btn-sm">Saytni ko'rish ↗</a>
+          <button id="saveBtn" class="btn btn-primary btn-sm" disabled>Saqlash</button>
+          <button id="logoutBtn" class="btn btn-outline btn-sm">Chiqish</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container layout">
+      <nav class="sidebar" id="sidebar"></nav>
+      <main id="editor" class="editor"></main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="../js/icons.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
