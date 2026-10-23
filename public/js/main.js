@@ -63,7 +63,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
 };
 
-let lang = store.get("lang") || "uz";
+let lang = store.get("lang") || "en";
 let PROFILE = {};
 const t = (key) => I18N[lang][key] ?? key;
 // Kontentdagi nisbiy yo'llar (assets/...) /contact sahifasida ham ishlashi uchun
@@ -264,7 +264,7 @@ function snow() {
   }
 }
 
-if (!I18N[lang]) lang = "uz";
+if (!I18N[lang]) lang = "en";
 fetch("content.json", { cache: "no-store" })
   .then((r) => r.json())
   .then((data) => {
