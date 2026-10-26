@@ -123,14 +123,8 @@ function toast(msg, isError = false) {
 /* ---------- GitHub API ---------- */
 // Admin panel serversiz ishlaydi: kontent va fayllar to'g'ridan-to'g'ri GitHub repoga commit qilinadi,
 // GitHub Actions esa saytni qayta deploy qiladi.
-const REPO = (() => {
-  const m = location.hostname.match(/^([\w-]+)\.github\.io$/i);
-  if (m) {
-    const first = location.pathname.split("/").filter(Boolean)[0];
-    return { owner: m[1], repo: first && first !== "admin" ? first : `${m[1]}.github.io` };
-  }
-  return { owner: "kadirovhabibjon", repo: "Portfolio" }; // lokal ishlaganda
-})();
+// Sayt qaysi manzilda ochilishidan qat'i nazar (khabibjon.uz, lokal), kontent shu repoda saqlanadi
+const REPO = { owner: "kadirovhabibjon", repo: "Portfolio" };
 const BRANCH = "main";
 const CONTENT_PATH = "public/content.json";
 const UPLOADS_PATH = "public/uploads";
