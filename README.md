@@ -3,9 +3,9 @@
 Shaxsiy portfolio sayt va uni boshqarish uchun admin panel. UZ / RU / EN tillari, dark / light rejim.
 Server kerak emas — GitHub Pages'da bepul ishlaydi.
 
-- **Sayt:** https://kadirovhabibjon.github.io/Portfolio/
-- **Kontakt:** https://kadirovhabibjon.github.io/Portfolio/contact/
-- **Admin panel:** https://kadirovhabibjon.github.io/Portfolio/admin/
+- **Sayt:** https://khabibjon.uz/
+- **Kontakt:** https://khabibjon.uz/contact/
+- **Admin panel:** https://khabibjon.uz/admin/
 
 ## Qanday ishlaydi
 
